@@ -1,4 +1,4 @@
-# Django Shop - [Ваша Фамилия]
+# Django Shop
 
 Онлайн-магазин на Django для изучения GitFlow и командной разработки.
 
@@ -21,7 +21,7 @@
 ### 1. Клонировать репозиторий
 
 bash
-git clone https://github.com/your-username/django-shop-фамилия.git
+git clone https://github.com/D-3342/online-shop-osincev-panchehin
 cd django-shop-фамилия
 git checkout develop
 
