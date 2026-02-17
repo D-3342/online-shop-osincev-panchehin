@@ -11,4 +11,4 @@ class CategoryAdmin(admin.ModelAdmin):
 class ProductAdmin(admin.ModelAdmin):
     list_display = ['id', 'name', 'category', 'price', 'stock', 'is_active']
     list_filter = ['category', 'is_active']
-    search_fields = ['name', 'description'] 
+    search_fields = ['name', 'description']

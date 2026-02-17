@@ -1,24 +1,31 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Удалить категорию</title>
+    <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body>
+<body class="bg-gray-900 text-gray-100 min-h-screen py-12 px-4">
+    <div class="max-w-2xl mx-auto bg-gray-800 border border-gray-700 rounded-lg p-8 shadow-xl">
+        <h2 class="text-2xl font-bold text-white mb-6">Удалить категорию</h2>
 
-{% extends "base.html" %}
-{% block content %}
-<h2>Удалить категорию</h2>
+        <p class="text-lg text-gray-300 mb-8">
+            Вы уверены, что хотите удалить категорию
+            <strong class="text-white">"{{ category.name }}"</strong>?
+        </p>
 
-<p>Вы уверены, что хотите удалить категорию "{{ category.name }}"?</p>
-
-<form method="post">
-    {% csrf_token %}
-    <button type="submit" class="btn btn-danger">Удалить</button>
-    <a href="{% url 'catalog:category_list' %}" class="btn btn-secondary">Отмена</a>
-</form>
-{% endblock %}
-
-
+        <form method="post" class="flex space-x-4">
+            {% csrf_token %}
+            <button type="submit"
+                    class="flex-1 bg-red-600 hover:bg-red-700 text-white font-medium py-3 px-6 rounded-lg transition-colors">
+                Удалить
+            </button>
+            <a href="{% url 'catalog:category_list' %}"
+               class="px-6 py-3 bg-gray-600 hover:bg-gray-700 text-gray-200 font-medium rounded-lg transition-colors">
+                Отмена
+            </a>
+        </form>
+    </div>
 </body>
 </html>
