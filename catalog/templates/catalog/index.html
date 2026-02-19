@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ title }}</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 0; padding: 20px; background: #f5f5f5; }
+        .container { max-width: 1200px; margin: 0 auto; background: white; padding: 30px; border-radius: 10px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
+        h1 { color: #333; text-align: center; }
+        .welcome { text-align: center; color: #666; margin: 20px 0; }
+        .categories { display: flex; flex-wrap: wrap; gap: 15px; justify-content: center; margin-top: 40px; }
+        .category { background: #007bff; color: white; padding: 15px 25px; border-radius: 25px; text-decoration: none; transition: all 0.3s; }
+        .category:hover { background: #0056b3; transform: translateY(-2px); }
+        .rocket { font-size: 3em; text-align: center; margin: 20px 0; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="rocket">🚀</div>
+        <h1>{{ title }}</h1>
+        <p class="welcome">{{ welcome_text }}</p>
+
+        <div class="categories">
+            {% for category in categories %}
+                <a href="#" class="category">{{ category }}</a>
+            {% endfor %}
+        </div>
+
+        <div style="text-align: center; margin-top: 40px; color: #888;">
+            <p>Скоро здесь будет полный каталог товаров!</p>
+        </div>
+    </div>
+</body>
+</html>

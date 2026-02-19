@@ -3,11 +3,21 @@ from django.contrib import messages
 from django.db.models import Q
 from .models import Category, Product
 from .forms import CategoryForm, ProductForm
+from django.shortcuts import render
+
+def home(request):
+    context = {
+        'title': 'Онлайн-магазин',
+        'welcome_text': 'Добро пожаловать в наш магазин!',
+        'categories': ['Смартфоны', 'Ноутбуки', 'Планшеты', 'Аксессуары']
+    }
+    return render(request, 'catalog/home.html', context)
+
 
 
 def category_list(request):
     search = request.GET.get("search", "")
-    qs = Category.objects.all()
+    qs = Category.objects.filter(is_active=True)  # ← Только активные
     if search:
         qs = qs.filter(name__icontains=search)
     return render(

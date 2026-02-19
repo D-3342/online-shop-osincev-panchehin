@@ -16,8 +16,13 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+from django.contrib.auth import views as auth_views
+from catalog import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('catalog/', include('catalog.urls'))
+    path('catalog/', include('catalog.urls')),
+    path('login/', auth_views.LoginView.as_view(template_name='registration/login.html')),
+    path('', views.home, name='home'),
 ]
+
