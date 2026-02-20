@@ -6,5 +6,47 @@
 </head>
 <body>
 
+{% extends 'home.html' %}
+
+{% block content %}
+<div class="row">
+    {% for product in page_obj %}
+    <div class="col-md-4 mb-4">
+        <div class="card">
+            {% if product.image %}
+            <img src="{{ product.image.url }}" class="card-img-top" alt="{{ product.name }}">
+            {% endif %}
+            <div class="card-body">
+                <h5 class="card-title">{{ product.name }}</h5>
+                <p class="card-text">{{ product.description|truncatewords:15 }}</p>
+                <p class="text-success fw-bold">{{ product.price }} ₽</p>
+                <a href="#" class="btn btn-primary">Подробнее</a>
+            </div>
+        </div>
+    </div>
+    {% empty %}
+    <p>Товаров пока нет</p>
+    {% endfor %}
+</div>
+
+<!-- Пагинация -->
+<div class="pagination">
+    {% if page_obj.has_previous %}
+        <a href="?page=1">&laquo; Первая</a>
+        <a href="?page={{ page_obj.previous_page_number }}">Предыдущая</a>
+    {% endif %}
+
+    <span>Страница {{ page_obj.number }} из {{ page_obj.paginator.num_pages }}</span>
+
+    {% if page_obj.has_next %}
+        <a href="?page={{ page_obj.next_page_number }}">Следующая</a>
+        <a href="?page={{ page_obj.paginator.num_pages }}">Последняя &raquo;</a>
+    {% endif %}
+</div>
+
+<a href="{% url 'product_create' %}" class="btn btn-success mt-3">Добавить товар</a>
+{% endblock %}
+
+
 </body>
 </html>

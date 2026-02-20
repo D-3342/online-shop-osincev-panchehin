@@ -5,6 +5,9 @@ app_name = "catalog"
 
 urlpatterns = [
     path('', views.category_list, name="home"),  # ← home → category_list!
+    path('product_list/', views.product_list, name='product_list'),
+    path('catalog/', views.category_list, name='catalog'),
+
 
     path("categories/", views.category_list, name="category_list"),
     path("categories/new/", views.category_create, name="category_create"),

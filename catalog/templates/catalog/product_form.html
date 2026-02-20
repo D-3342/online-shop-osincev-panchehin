@@ -6,5 +6,51 @@
 </head>
 <body>
 
+{% extends 'home.html' %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-8">
+        <h2>{% if form.instance.pk %}Редактировать{% else %}Добавить{% endif %} товар</h2>
+
+        <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="mb-3">
+                {{ form.name.label_tag }}
+                {{ form.name }}
+            </div>
+
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="mb-3">
+                        {{ form.price.label_tag }}
+                        {{ form.price }}
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="mb-3">
+                        {{ form.category.label_tag }}
+                        {{ form.category }}
+                    </div>
+                </div>
+            </div>
+
+            <div class="mb-3">
+                {{ form.description.label_tag }}
+                {{ form.description }}
+            </div>
+
+            <div class="mb-3">
+                {{ form.image.label_tag }}
+                {{ form.image }}
+            </div>
+
+            <button type="submit" class="btn btn-primary">Сохранить</button>
+            <a href="{% url 'product_list' %}" class="btn btn-secondary">Отмена</a>
+        </form>
+    </div>
+</div>
+{% endblock %}
+
 </body>
 </html>

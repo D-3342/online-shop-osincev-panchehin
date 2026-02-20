@@ -9,7 +9,7 @@ def home(request):
     context = {
         'title': 'Онлайн-магазин',
         'welcome_text': 'Добро пожаловать в наш магазин!',
-        'categories': ['Смартфоны', 'Ноутбуки', 'Планшеты', 'Аксессуары']
+        'categories': ['Продукты', 'Категории']
     }
     return render(request, 'catalog/home.html', context)
 
