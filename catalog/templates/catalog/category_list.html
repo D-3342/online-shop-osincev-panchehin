@@ -8,10 +8,17 @@
 </head>
 <body class="bg-gray-900 text-gray-100 min-h-screen py-8">
     <div class="max-w-6xl mx-auto px-4">
+        <div class="flex justify-between items-center mb-4">
+            <h1 class="text-2xl font-bold">Список категорий</h1>
+            <a href="{% url 'catalog:category_create' %}" class="px-4 py-2 bg-green-600 hover:bg-green-700 text-white text-sm font-medium rounded-lg transition-colors">
+                Добавить категорию
+            </a>
+        </div>
+
         <table class="w-full bg-gray-800 border border-gray-700 rounded-lg overflow-hidden">
             <thead class="bg-gray-700">
                 <tr>
-                    <th class="w-20 p-4 text-centercenter text-sm font-semibold text-gray-300 uppercase tracking-wider">ID</th>
+                    <th class="w-20 p-4 text-center text-sm font-semibold text-gray-300 uppercase tracking-wider">ID</th>
                     <th class="w-[200px] p-4 text-center text-sm font-semibold text-gray-300 uppercase tracking-wider">Название</th>
                     <th class="w-[160px] p-4 text-center text-sm font-semibold text-gray-300 uppercase tracking-wider">Slug</th>
                     <th class="w-[300px] p-4 text-center text-sm font-semibold text-gray-300 uppercase tracking-wider">Описание</th>

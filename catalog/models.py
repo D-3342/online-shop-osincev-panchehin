@@ -5,7 +5,7 @@ from django.urls import reverse
 class Category(models.Model):
     name = models.CharField(
         max_length=200,
-        verbose_name='Название'  # ← Русское название в админке
+        verbose_name='Название'
     )
     slug = models.SlugField(
         max_length=200,
@@ -56,6 +56,8 @@ class Product(models.Model):
 
     class Meta:
         ordering = ['name']
+        verbose_name = 'Продукт'
+        verbose_name_plural = 'Продукты'
 
     def save(self, *args, **kwargs):
         if not self.slug:
