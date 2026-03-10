@@ -1,52 +1,205 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Каталог товаров</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            background: #f8f9fa;
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 40px;
+            color: #1a73e8;
+        }
+
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+
+        .product-card {
+            background: white;
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            transition: box-shadow 0.2s;
+        }
+
+        .product-card:hover {
+            box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+        }
+
+        .product-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 8px;
+            margin-bottom: 15px;
+        }
+
+        .no-image {
+            width: 100%;
+            height: 200px;
+            background: #f0f0f0;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #999;
+            margin-bottom: 15px;
+            font-size: 48px;
+        }
+
+        .product-name {
+            font-size: 1.3em;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+
+        .product-desc {
+            color: #666;
+            margin-bottom: 15px;
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        .product-price {
+            font-size: 1.5em;
+            font-weight: 700;
+            color: #10b981;
+            margin-bottom: 15px;
+        }
+
+        .btn {
+            display: inline-block;
+            background: #1a73e8;
+            color: white;
+            padding: 12px 24px;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: 500;
+            transition: background 0.2s;
+        }
+
+        .btn:hover {
+            background: #1557b0;
+        }
+
+        .pagination {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 40px;
+            flex-wrap: wrap;
+        }
+
+        .pagination a {
+            padding: 10px 16px;
+            background: white;
+            color: #1a73e8;
+            text-decoration: none;
+            border-radius: 6px;
+            border: 1px solid #e0e0e0;
+            font-weight: 500;
+        }
+
+        .pagination a:hover {
+            background: #1a73e8;
+            color: white;
+        }
+
+        .page-info {
+            padding: 10px 16px;
+            background: white;
+            border-radius: 6px;
+            border: 1px solid #e0e0e0;
+            color: #666;
+        }
+
+        .btn-add {
+            display: block;
+            width: 200px;
+            margin: 0 auto 40px;
+            background: #10b981;
+            text-align: center;
+        }
+
+        .btn-add:hover {
+            background: #059669;
+        }
+
+        .no-products {
+            text-align: center;
+            padding: 60px 20px;
+            color: #666;
+        }
+
+        @media (max-width: 768px) {
+            .products-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
 </head>
 <body>
+    <h1>Каталог товаров</h1>
 
-{% extends 'home.html' %}
-
-{% block content %}
-<div class="row">
-    {% for product in page_obj %}
-    <div class="col-md-4 mb-4">
-        <div class="card">
+    {% block content %}
+    <div class="products-grid">
+        {% for product in products %}
+        <div class="product-card">
             {% if product.image %}
-            <img src="{{ product.image.url }}" class="card-img-top" alt="{{ product.name }}">
+            <img src="{{ product.image.url }}" class="product-image" alt="{{ product.name }}">
+            {% else %}
+            <div class="no-image">📦</div>
             {% endif %}
-            <div class="card-body">
-                <h5 class="card-title">{{ product.name }}</h5>
-                <p class="card-text">{{ product.description|truncatewords:15 }}</p>
-                <p class="text-success fw-bold">{{ product.price }} ₽</p>
-                <a href="#" class="btn btn-primary">Подробнее</a>
-            </div>
+            <div class="product-name">{{ product.name }}</div>
+            <div class="product-desc">{{ product.description|truncatewords:15 }}</div>
+            <div class="product-price">{{ product.price }} ₽</div>
+            <a href="#" class="btn">Подробнее</a>
         </div>
+        {% empty %}
+        <div class="no-products">
+            <h2>Товаров пока нет</h2>
+            <p>Скоро здесь появятся товары</p>
+        </div>
+        {% endfor %}
     </div>
-    {% empty %}
-    <p>Товаров пока нет</p>
-    {% endfor %}
-</div>
 
-<!-- Пагинация -->
-<div class="pagination">
-    {% if page_obj.has_previous %}
-        <a href="?page=1">&laquo; Первая</a>
-        <a href="?page={{ page_obj.previous_page_number }}">Предыдущая</a>
+    {% if page_obj.paginator.num_pages > 1 %}
+    <div class="pagination">
+        {% if page_obj.has_previous %}
+            <a href="?page=1">Первая</a>
+            <a href="?page={{ page_obj.previous_page_number }}">← Пред.</a>
+        {% endif %}
+        <span class="page-info">Страница {{ page_obj.number }} из {{ page_obj.paginator.num_pages }}</span>
+        {% if page_obj.has_next %}
+            <a href="?page={{ page_obj.next_page_number }}">След. →</a>
+            <a href="?page={{ page_obj.paginator.num_pages }}">Последняя</a>
+        {% endif %}
+    </div>
     {% endif %}
 
-    <span>Страница {{ page_obj.number }} из {{ page_obj.paginator.num_pages }}</span>
-
-    {% if page_obj.has_next %}
-        <a href="?page={{ page_obj.next_page_number }}">Следующая</a>
-        <a href="?page={{ page_obj.paginator.num_pages }}">Последняя &raquo;</a>
-    {% endif %}
-</div>
-
-<a href="{% url 'product_create' %}" class="btn btn-success mt-3">Добавить товар</a>
-{% endblock %}
-
-
+    <a href="" class="btn btn-add">+ Добавить товар</a>
+    {% endblock %}
 </body>
 </html>
