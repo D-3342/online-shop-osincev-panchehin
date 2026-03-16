@@ -5,22 +5,102 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{ title|default:"Редактировать категорию" }}</title>
     <style>
-        body { font-family: Arial, sans-serif; margin: 0; padding: 20px; background: #f5f5f5; }
-        .container { max-width: 600px; margin: 0 auto; background: white; padding: 30px; border-radius: 10px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
-        h1 { color: #333; text-align: center; margin-bottom: 30px; }
-        .form-group { margin-bottom: 20px; }
-        label { display: block; margin-bottom: 5px; font-weight: bold; color: #555; }
-        input, textarea { width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 5px; font-size: 16px; box-sizing: border-box; }
-        textarea { height: 100px; resize: vertical; }
-        .checkbox-group { display: flex; align-items: center; gap: 10px; margin: 15px 0; }
-        .form-actions { display: flex; gap: 15px; justify-content: center; margin-top: 30px; }
-        .btn { padding: 12px 30px; border: none; border-radius: 5px; font-size: 16px; cursor: pointer; text-decoration: none; display: inline-block; text-align: center; }
-        .btn-primary { background: #007bff; color: white; }
-        .btn-secondary { background: #6c757d; color: white; }
-        .btn:hover { opacity: 0.9; }
-        .messages { padding: 15px; margin-bottom: 20px; border-radius: 5px; }
-        .messages.success { background: #d4edda; color: #155724; border: 1px solid #c3e6cb; }
-        .back-link { color: #007bff; text-decoration: none; display: inline-block; margin-bottom: 20px; }
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            color: #333;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+            color: #555;
+        }
+        input, textarea {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 16px;
+            box-sizing: border-box;
+        }
+        textarea {
+            height: 100px;
+            resize: vertical;
+        }
+        .checkbox-group {
+            display: flex;
+            align-items: center;
+            margin: 10px 0;
+        }
+        .checkbox-group label {
+            margin-right: 10px;
+        }
+        .form-actions {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            margin-top: 30px;
+        }
+        .btn {
+            padding: 12px 30px;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-block;
+            text-align: center;
+            transition: background 0.3s;
+        }
+        .btn-primary {
+            background: #007bff;
+            color: white;
+        }
+        .btn-secondary {
+            background: #6c757d;
+            color: white;
+        }
+        .btn:hover {
+            opacity: 0.9;
+        }
+        .messages {
+            padding: 15px;
+            margin-bottom: 20px;
+            border-radius: 5px;
+        }
+        .messages.success {
+            background: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+        .back-link {
+            color: #007bff;
+            text-decoration: none;
+            display: inline-block;
+            margin-bottom: 20px;
+        }
+        .error-message {
+            color: red;
+            margin-top: 5px;
+        }
     </style>
 </head>
 <body>
@@ -43,7 +123,7 @@
                 <label for="{{ form.name.id_for_label }}">Название категории:</label>
                 {{ form.name }}
                 {% if form.name.errors %}
-                    <div style="color: red;">{{ form.name.errors }}</div>
+                    <div class="error-message">{{ form.name.errors }}</div>
                 {% endif %}
             </div>
 
@@ -51,7 +131,7 @@
                 <label for="{{ form.slug.id_for_label }}">Slug (URL):</label>
                 {{ form.slug }}
                 {% if form.slug.errors %}
-                    <div style="color: red;">{{ form.slug.errors }}</div>
+                    <div class="error-message">{{ form.slug.errors }}</div>
                 {% endif %}
             </div>
 
@@ -59,17 +139,17 @@
                 <label for="{{ form.description.id_for_label }}">Описание:</label>
                 {{ form.description }}
                 {% if form.description.errors %}
-                    <div style="color: red;">{{ form.description.errors }}</div>
+                    <div class="error-message">{{ form.description.errors }}</div>
                 {% endif %}
             </div>
 
             <div class="form-group checkbox-group">
-                <label>{{ form.is_active.label }}</label>
+                <label for="{{ form.is_active.id_for_label }}">{{ form.is_active.label }}</label>
                 {{ form.is_active }}
             </div>
 
             <div class="form-actions">
-                <button type="submit" class="btn btn-primary">💾 Сохранить</button>
+                <button type="submit" class="btn btn-primary">Сохранить</button>
                 <a href="{% url 'catalog:category_list' %}" class="btn btn-secondary">Отмена</a>
             </div>
         </form>
