@@ -23,7 +23,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('catalog/', include('catalog.urls')),
     path('product/', views.product_list, name='product'),
-    path('login/', auth_views.LoginView.as_view(template_name='registration/login.html')),
+    path('login/', auth_views.LoginView.as_view(template_name='login.html')),
     path('', views.home, name='home'),
 ]
 

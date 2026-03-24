@@ -1,5 +1,9 @@
+from django.contrib.auth import authenticate, login
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
+from django import forms
+from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.models import User
 from django.db.models import Q
 from .models import Category, Product
 from .forms import CategoryForm, ProductForm
@@ -13,7 +17,42 @@ def home(request):
     }
     return render(request, 'catalog/home.html', context)
 
+def registration(request):
+    if request.method == "POST":
+        form = UserCreationForm(request.POST)
+        if form.is_valid():
+            user = form.save()
+            login = (request, user)
+            return redirect("home")
+    else:
+        form = UserCreationForm()
 
+    return render(request, "catalog/registration.html", {"form": form})
+
+def user_login(request):
+    if request.method == "POST":
+        username = request.POST["username"]
+        password = request.POST["password"]
+        user = authenticate(request, username=username, password=password)
+        if user is not None:
+            login(request, user)
+            return redirect("home")
+        else:
+            error = "Неверный логин или пароль"
+    else:
+        error = None
+
+    return render(request, "catalog/login.html", {"error": error})
+
+def my_profile(request):
+    if request.method == "POST":
+        new_email = request.POST.get("email", "").strip()
+        if new_email:
+            request.user.email = new_email
+            request.user.save()
+        return redirect("catalog:my_profile")
+
+    return render(request, "catalog/my_profile.html")
 
 def category_list(request):
     search = request.GET.get("search", "")

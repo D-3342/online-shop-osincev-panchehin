@@ -5,31 +5,259 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{ title }}</title>
     <style>
-        body { font-family: Arial, sans-serif; margin: 0; padding: 20px; background: #f5f5f5; }
-        .container { max-width: 1200px; margin: 0 auto; background: white; padding: 30px; border-radius: 10px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
-        h1 { color: #333; text-align: center; }
-        .welcome { text-align: center; color: #666; margin: 20px 0; }
-        .categories { display: flex; flex-wrap: wrap; gap: 15px; justify-content: center; margin-top: 40px; }
-        .category { background: #007bff; color: white; padding: 15px 25px; border-radius: 25px; text-decoration: none; transition: all 0.3s; }
-        .category:hover { background: #0056b3; transform: translateY(-2px); }
-        .rocket { font-size: 3em; text-align: center; margin: 20px 0; }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, 'Roboto', sans-serif;
+            background: #f0f2f5;
+            color: #1f2937;
+            line-height: 1.5;
+        }
+
+        /* Шапка */
+        header {
+            background: #002a77;
+            color: white;
+            padding: 12px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 10;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+        }
+
+        .logo {
+            font-size: 1.6rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo span.icon {
+            font-size: 1.4em;
+        }
+
+        .search {
+            flex: 1;
+            max-width: 520px;
+            position: relative;
+        }
+
+        .search input {
+            width: 100%;
+            padding: 11px 16px 11px 44px;
+            border: none;
+            border-radius: 26px;
+            outline: none;
+            font-size: 14px;
+            background: #fff;
+            box-shadow: 0 1px 6px rgba(0,0,0,0.1);
+            color: #1f2937;
+        }
+
+        .search::before {
+            content: "🔍";
+            position: absolute;
+            left: 14px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 1.1em;
+            color: #888;
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 18px;
+            font-size: 15px;
+        }
+
+        .nav-links a {
+            color: #e0e0e0;
+            text-decoration: none;
+            padding: 4px 8px;
+            border-radius: 6px;
+            transition: background 0.2s ease;
+        }
+
+        .nav-links a:hover {
+            background: rgba(255,255,255,0.15);
+        }
+
+        .nav-links .btn {
+            background: #0087ff;
+            color: white;
+            padding: 7px 14px;
+            border-radius: 20px;
+            font-size: 14px;
+        }
+
+        .nav-links .btn:hover {
+            background: #006cd0;
+        }
+
+        /* Основной контент */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 24px 20px 40px;
+        }
+
+        .welcome {
+            text-align: center;
+            margin: 20px 0 36px;
+            font-size: 1.2rem;
+            color: #555;
+        }
+
+        .headline {
+            font-size: 2rem;
+            font-weight: 700;
+            text-align: center;
+            margin: 20px 0;
+            color: #111827;
+        }
+
+        /* Блок категорий */
+        .categories {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            justify-content: center;
+            margin: 30px 0;
+        }
+
+        .category {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            background: #007bff;
+            color: white;
+            padding: 10px 18px;
+            border-radius: 24px;
+            text-decoration: none;
+            font-size: 0.95rem;
+            transition: all 0.2s ease;
+            box-shadow: 0 2px 6px rgba(0,123,255,0.15);
+        }
+
+        .category:hover {
+            background: #0056b3;
+            transform: translateY(-2px) scale(1.02);
+            box-shadow: 0 4px 12px rgba(0,123,255,0.25);
+        }
+
+        .category span.icon {
+            font-size: 1.1em;
+        }
+
+        /* Блок акций */
+        .promo-section {
+            background: linear-gradient(135deg, #00bfa5, #00838f);
+            border-radius: 16px;
+            padding: 30px 24px 20px;
+            margin: 40px 0 30px;
+            color: white;
+            text-align: center;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+        }
+
+        .promo-section h2 {
+            font-size: 1.6rem;
+            margin-bottom: 10px;
+        }
+
+        .promo-section p {
+            font-size: 1.05rem;
+            opacity: 0.95;
+            margin-top: 8px;
+        }
+
+        /* Нижний блок */
+        .bottom-info {
+            text-align: center;
+            margin-top: 40px;
+            color: #777;
+        }
+
+        /* Подвал */
+        .footer {
+            margin-top: 60px;
+            text-align: center;
+            padding: 20px 0;
+            border-top: 1px solid #e5e7eb;
+            color: #666;
+            font-size: 0.95rem;
+        }
     </style>
 </head>
 <body>
+
+    <header>
+        <div class="logo">
+            <span class="icon">🛍️</span> {{ title }}
+        </div>
+
+        <div class="search">
+            <form method="get" action="{% url 'catalog:product_list' %}">
+                <input type="text" name="q" placeholder="Поиск по товарам..." />
+            </form>
+        </div>
+
+        <div class="nav-links">
+            {% if user.is_authenticated %}
+                <a href="{% url 'catalog:my_profile' %}">👤 Профиль</a>
+                <a href="{% url 'catalog:logout' %}" class="btn">Выйти</a>
+            {% else %}
+                <a href="{% url 'catalog:user_login' %}">Войти</a>
+                <a href="{% url 'catalog:registration' %}" class="btn">Регистрация</a>
+            {% endif %}
+        </div>
+    </header>
+
     <div class="container">
-        <div class="rocket">🚀</div>
-        <h1>{{ title }}</h1>
+        <h1 class="headline">Добро пожаловать в {{ title }}</h1>
         <p class="welcome">{{ welcome_text }}</p>
 
         <div class="categories">
-            <a href="{% url 'catalog:category_list' %}" class="category">Каталог</a>
-            <a href="{% url 'catalog:product_list' %}" class="category">Главная</a>
+            <a href="{% url 'catalog:category_list' %}" class="category">
+                <span class="icon">📚</span>
+                Каталог
+            </a>
+            <a href="{% url 'catalog:product_list' %}" class="category">
+                <span class="icon">📦</span>
+                Все товары
+            </a>
+            <a href="{% url 'catalog:product_list' %}?sort=popular" class="category">
+                <span class="icon">🔥</span>
+                Популярное
+            </a>
+            <a href="{% url 'catalog:product_list' %}?sort=new" class="category">
+                <span class="icon">✨</span>
+                Новинки
+            </a>
         </div>
 
+        <div class="promo-section">
+            <h2>Скидки до 50% на популярные категории</h2>
+            <p>Спешите, акционные товары заканчиваются!</p>
+        </div>
 
-        <div style="text-align: center; margin-top: 40px; color: #888;">
-            <p>Скоро здесь будет полный каталог товаров!</p>
+        <div class="bottom-info">
+            <p>Скоро здесь будет полный каталог товаров с реальными категориями и товарами.</p>
         </div>
     </div>
+
+    <div class="footer">
+        <p>&copy; 2026 {{ title }}. Все права защищены.</p>
+    </div>
+
 </body>
 </html>

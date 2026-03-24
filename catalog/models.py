@@ -66,3 +66,14 @@ class Product(models.Model):
 
     def __str__(self):
         return self.name
+
+class UserProfile(models.Model):
+    login = models.CharField(max_length=67,unique=True)
+    password = models.CharField(max_length=67)
+    email = models.EmailField(max_length=255,unique=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        ordering = ['login']
+        verbose_name = 'Логин'
