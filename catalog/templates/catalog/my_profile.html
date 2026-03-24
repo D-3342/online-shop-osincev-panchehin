@@ -224,7 +224,7 @@
         <div class="nav-links">
             <a href="/">Главная</a>
             <a href="{% url 'catalog:category_list' %}">Каталог</a>
-            <a href="{% url 'catalog:logout' %}" class="btn">Выйти</a>
+            <a href="" class="btn">Выйти</a>
         </div>
     </header>
 
@@ -269,7 +269,6 @@
             </div>
 
             <div class="profile-actions">
-                <!-- Можно добавить ссылки на заказы, корзину, историю покупок -->
                 <button class="action-btn" disabled>Заказы</button>
                 <button class="action-btn" disabled>Корзина</button>
                 <button class="action-btn" disabled>Настройки</button>
@@ -277,7 +276,7 @@
                 <button class="action-btn logout" onclick="document.querySelector('form').submit();">
                     Выйти из аккаунта
                 </button>
-                <form method="post" action="{% url 'catalog:logout' %}">
+                <form method="post" action="">
                     {% csrf_token %}
                 </form>
             </div>

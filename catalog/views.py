@@ -1,4 +1,4 @@
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
 from django import forms
@@ -53,6 +53,10 @@ def my_profile(request):
         return redirect("catalog:my_profile")
 
     return render(request, "catalog/my_profile.html")
+
+def user_logout(request):
+    logout(request)
+    return redirect("home")
 
 def category_list(request):
     search = request.GET.get("search", "")
